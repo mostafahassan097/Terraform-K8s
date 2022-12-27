@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-db
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: backend-db
+  template:
+    metadata:
+      labels:
+        app: backend-db
+    spec:
+      containers:
+        - name: backend-db
+          image: mostafahassan/redis
+          ports:
+            - containerPort: 6379
+              name: redis

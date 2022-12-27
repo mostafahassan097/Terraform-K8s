@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-app
+spec:
+  replicas: 3
+
+  selector:
+    matchLabels:
+      app: frontend-app
+  template:
+    metadata:
+      labels:
+        app: frontend-app
+    spec:
+      containers:
+        - name: frontend-app
+          image: mostafahassan/webapp-python
+          ports:
+            - containerPort: 9000
+          env:
+            - name: ENVIRONMENT
+              value: "DEV" #Could Be PROD in another namespace PROD
+            - name: HOST
+              value: "localhost"
+            - name: PORT
+              value: "9000"
+            - name: REDIS_HOST
+              value:  backend-service #backend service Cluster IP name
+            - name: REDIS_PORT
+              value: "6379"
+            - name: REDIS_DB
+              value: "0"

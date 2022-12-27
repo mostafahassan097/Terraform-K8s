@@ -8,9 +8,9 @@
   disk_size = 20
  
   scaling_config {
-   desired_size = 5
-   max_size   = 7
-   min_size   = 3
+   desired_size = 3
+   max_size   = 5
+   min_size   = 1
   }
  
   depends_on = [
