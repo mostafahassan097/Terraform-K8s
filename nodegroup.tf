@@ -3,13 +3,13 @@
   node_group_name = "eks-workernodes"
   node_role_arn  = aws_iam_role.ng-iam-role.arn
   subnet_ids   = [aws_subnet.private-1.id, aws_subnet.private-2.id, aws_subnet.private-3.id]
-  instance_types = ["t2.micro"]
+  instance_types = ["t2.xlarge"]
   ami_type = "AL2_x86_64"
   disk_size = 20
  
   scaling_config {
-   desired_size = 3
-   max_size   = 5
+   desired_size = 1
+   max_size   = 1
    min_size   = 1
   }
  

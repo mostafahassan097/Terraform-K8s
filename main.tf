@@ -12,6 +12,11 @@ provider "aws" {
   region = "eu-west-1"
 }
 
+provider "kubernetes" {
+  config_path    = "~/.kube/config"
+  config_context = "${aws_eks_cluster.my-eks-cluster.arn}"
+}
+
 /*# Backend must remain commented until the Bucket
  and the DynamoDB table are created. 
  After the creation you can uncomment it,
