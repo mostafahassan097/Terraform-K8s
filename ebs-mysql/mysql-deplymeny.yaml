@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: mysql-dp
+spec:
+ selector:
+   matchLabels:
+    app: mysql
+ template:
+   metadata:
+     labels:
+      app: mysql
+ spec:
+  containers:
+  - name: mysql
+	  image: mysql:5.6
+	  resources:
+	    limits:
+		    memory: "128Mi"
+		    cpu: "500m"
+	  ports:
+	  - containerPort: 3306
+      volumeMounts:
+      - name: mysql
+	    mountPath: /var/lib/mysql
+  volumes:
+  - name: mysql-storage
+    presistentVolumeClaim:
+	   claimName: my-mysql-pvc
+  - name: usermgtdb
+     configMap:
+       name: usermgtdb
