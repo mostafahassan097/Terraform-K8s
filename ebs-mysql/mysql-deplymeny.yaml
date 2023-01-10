@@ -3,30 +3,32 @@ kind: Deployment
 metadata:
  name: mysql-dp
 spec:
+ replicas: 1
  selector:
    matchLabels:
     app: mysql
  template:
-   metadata:
+  metadata:
      labels:
       app: mysql
- spec:
-  containers:
-  - name: mysql
-	  image: mysql:5.6
-	  resources:
-	    limits:
-		    memory: "128Mi"
-		    cpu: "500m"
-	  ports:
-	  - containerPort: 3306
+  spec: 
+    containers:
+    - name: mysql
+      image: mysql:5.6
+      env:
+      - name: MYSQL_ROOT_PASSWORD
+        value: dbpassword11
+      ports:
+      - containerPort: 3306
       volumeMounts:
-      - name: mysql
-	    mountPath: /var/lib/mysql
-  volumes:
-  - name: mysql-storage
-    presistentVolumeClaim:
-	   claimName: my-mysql-pvc
-  - name: usermgtdb
-     configMap:
-       name: usermgtdb
+      - name: mysql-storage
+        mountPath: /var/lib/mysql
+      - name: usermgtdb
+        mountPath: /docker-entrypoint-initdb.d
+    volumes:
+      - name: mysql-storage
+        persistentVolumeClaim:
+          claimName: my-mysql-pvc
+      - name: usermgtdb
+        configMap:
+            name: usermgtdb

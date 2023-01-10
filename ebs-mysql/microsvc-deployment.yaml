@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: microservice-api
+spec:
+  replicas: 1 
+  selector:
+    matchLabels:
+      app: microservice-api
+  template:
+    metadata:
+      labels:
+        app: microservice-api
+    spec:
+      containers:
+      - name: microservice-api
+        image: stacksimplify/kube-usermanagement-microservice:1.0.0
+        env:
+        - name: DB_HOSTNAME
+          value: "mysql"
+        - name: DB_PORT
+          value: "3306"
+        - name: DB_USERNAME
+          value: "root"
+        - name: DB_PASSWORD
+          value: "dbpassword11"
+        - name: DB_NAME
+          value: "usermgtdb"
+        ports:
+        - containerPort: 8095
